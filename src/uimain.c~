@@ -1,0 +1,13 @@
+#include "stdio.h"
+
+int main(){
+
+  char userInp[40];
+
+  putchar('$');
+  scanf("%s", userInp);
+
+  printf(userInp);
+
+  return 0;
+}
