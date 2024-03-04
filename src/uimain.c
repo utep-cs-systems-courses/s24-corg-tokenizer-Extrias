@@ -8,6 +8,7 @@ int main(){
   fgets(userInp, 40, stdin);
 
   printf(userInp);
+  printf("hola\nhola\nhola");
 
   return 0;
 }
