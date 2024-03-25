@@ -42,4 +42,6 @@ char *token_terminator(char *token) {
     return token;
 }
 
+int count_tokens(char *s){
 
+}
