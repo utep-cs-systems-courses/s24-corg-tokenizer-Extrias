@@ -66,4 +66,18 @@ int count_tokens(char *s){
 
 char *copy_str(char *inStr, short len){
 
+  char *copy = (char *) malloc((len + 1) * (sizeof(char)));
+
+  if(copy == NULL){
+    fprintf(stderr, "Memory Allocation Failed\n");
+    exit(EXIT_FAILURE);
+  }
+
+  for(int i = 0; i < len; i++){
+    copy[i] = inStr[i];
+  }
+
+  copy[len] = '\0';
+
+  return copy;
 }
