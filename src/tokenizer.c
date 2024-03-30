@@ -43,5 +43,27 @@ char *token_terminator(char *token) {
 }
 
 int count_tokens(char *s){
+  int count = 0;
+  int in_token = 0; //flag to track if inside token
+
+  //iterate through string
+  while(*s){
+    //check for the start of the token
+    if(*s != ' ' || *s == '\t' || *s == '\n' || *s == '\r'){
+      if(!in_token){
+	in_token = 1;
+	count++;
+      }
+    }
+    else{
+      in_token = 0; //resets flag when it sees a token
+    }
+
+    *s++;
+  }
+  return count;
+}
+
+char *copy_str(char *inStr, short len){
 
 }
