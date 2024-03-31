@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include <tokenizer.h>
+#include <stdlib.h>
+#include "tokenizer.h"
 
 int space_char(char c){
   if((c == '\t' || c == ' ') && c != '\0'){
@@ -76,8 +77,85 @@ char *copy_str(char *inStr, short len){
   for(int i = 0; i < len; i++){
     copy[i] = inStr[i];
   }
-
+ 
   copy[len] = '\0';
 
   return copy;
 }
+
+
+/* Returns a freshly allocated zero-terminated vector of freshly allocated 
+   space-separated tokens from zero-terminated str.
+
+   For example, tokenize("hello world string") would result in:
+     tokens[0] = "hello"
+     tokens[1] = "world"
+     tokens[2] = "string" 
+     tokens[3] = 0
+*/
+char **tokenize(char* str){
+  int token_count = 0;
+  char **tokens = NULL;
+  char *token_start = NULL;
+
+  //count number of tokens
+  for(char *p = str; *p; p++){
+    if(*p != ' '){
+      token_count++;
+      while(*p && *p != ' '){ //skip the token until next space
+	p++;
+      }
+    }
+  }
+
+  tokens = (char **) malloc((token_count + 1) * sizeof(char *));
+  if(tokens == NULL){
+    fprintf(stderr, "Memory Allocation Failed\n");
+    exit(EXIT_FAILURE);
+  }
+
+  //tokenizing string
+  int i = 0;
+  for(char *p = str; *p; p++){
+    if(*p != ' '){
+      token_start = p;
+      while(*p && *p != ' '){
+	p++;
+      }
+
+      int token_len = p - token_start;
+      tokens[i] = (char *) malloc((token_len + 1) * sizeof(char));
+      if(tokens[i] == NULL){
+	fprintf(stderr, "Memory Allocation Failed\n");
+	exit(EXIT_FAILURE);
+      }
+
+      for(int j = 0; j < token_len; j++){
+	tokens[i][j] = token_start[j];
+
+      }
+      tokens[i][token_len] = '\0'; //Null terminate the token
+      i++;
+    }
+  }
+  tokens[token_count] = NULL;
+  return tokens;
+}
+
+/* Prints all tokens. */
+void print_tokens(char **tokens){
+  for(int i = 0; tokens[i] != NULL; i++){
+    printf("Token %d: %s\n", i+1, tokens[i]);
+  }
+}
+
+/* Frees all tokens and the vector containing themx. */
+void free_tokens(char **tokens){
+
+  for(int i = 0; tokens[i] != NULL; i++){
+    free(tokens[i]);
+  }
+
+  free(tokens);
+}
+
