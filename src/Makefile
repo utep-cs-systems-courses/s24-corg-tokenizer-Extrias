@@ -7,5 +7,7 @@ uimain.o: uimain.c
 	cc -c uimain.c
 
 uimain: uimain.o tokenizer.o
-	cc -o tokenizer tokenizer.o uimain.o
+	cc -o uimain tokenizer.o uimain.o
 
+clean:
+	rm -f *.o *.c~ uimain
