@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include <history.h>
+#include "history.h"
+#include <stdlib.h>
 #include <string.h>
 
 /* Initialize the linked list to keep the history. */
@@ -7,7 +8,7 @@ List* init_history(){
   List *list = (List *)malloc(sizeof(List));
 
   if(list == NULL){
-    fprinf(stderr, "Memory allocation failed\n");
+    fprintf(stderr, "Memory allocation failed\n");
     exit(EXIT_FAILURE);
   }
 
@@ -30,7 +31,7 @@ void add_history(List *list, char *str){
 
   newItem->str = strdup(str); //duplicate string given
   if(newItem->str == NULL){
-    fprinf(stderr, "Memory allocation failed\n");
+    fprintf(stderr, "Memory allocation failed\n");
     exit(EXIT_FAILURE);
   }
 
@@ -46,7 +47,7 @@ void add_history(List *list, char *str){
   }
 
   
-  newItem->id == 1;
+  newItem->id = id;
   newItem->next = NULL;
 
   //insert new item to the end of the list
@@ -85,7 +86,7 @@ void print_history(List *list){
 
   Item *current = list->root;
   while(current != NULL){
-    printf("%d: %s", current->id, current->str);
+    printf("%d: %s\n", current->id, current->str);
     current = current->next;
   }
 }
